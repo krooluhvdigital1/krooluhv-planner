@@ -112,7 +112,7 @@
 
                 <div class="bg-brand-darkGray border border-brand-borderGray px-4 py-2 rounded-lg flex items-center gap-3">
                     <span class="text-brand-coolGray text-xs uppercase tracking-wider">Total Blueprint:</span>
-                    <span id="global-total-posts" class="font-display font-bold text-white text-base">0 Posts</span>
+                    <span id="global-total-posts" class="font-display font-bold text-white text-base">142 Posts</span>
                 </div>
                 <div class="bg-brand-darkGray border border-brand-borderGray px-4 py-2 rounded-lg flex items-center gap-3">
                     <span class="text-brand-coolGray text-xs uppercase tracking-wider font-semibold">Deployment:</span>
@@ -372,7 +372,7 @@
                     <!-- AI Guidelines Summary -->
                     <div class="bg-brand-darkGray border border-brand-borderGray p-5 rounded-xl space-y-3 text-xs text-brand-coolGray">
                         <span class="text-[10px] uppercase tracking-widest font-bold text-white block">AI Studio Principles:</span>
-                        <p class="leading-relaxed">All generated concepts automatically map to realistic platform specs (TikTok / Reels hooks, sizing recommendations) built dynamically with streetwear aesthetics.</p>
+                        <p class="leading-relaxed font-sans">All generated concepts automatically map to realistic platform specs (TikTok / Reels hooks, sizing recommendations) built dynamically with streetwear aesthetics.</p>
                         <div class="bg-brand-black/40 p-2.5 rounded border border-brand-borderGray/40 font-mono text-[10px] space-y-1">
                             <span class="text-brand-orange block font-bold">✔ Structured JSON parsing</span>
                             <span class="text-blue-400 block font-bold">✔ Fallback mechanisms configured</span>
@@ -572,26 +572,36 @@
     <!-- FIREBASE MODULE LOADER -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global state references configured for Rule 1 & Rule 3 compliance
+        // ==========================================
+        // 🛠️ FIREBASE CONFIGURATION (Screenshot Values Hardcoded) 🛠️
+        // ==========================================
+        const myHardcodedFirebaseConfig = {
+            apiKey: "AIzaSyCXKLe0owstXmi3WKtaF5KfJxbV-dKuL7Q",
+            authDomain: "krooluhv-planner.firebaseapp.com",
+            projectId: "krooluhv-planner",
+            storageBucket: "krooluhv-planner.firebasestorage.app",
+            messagingSenderId: "1060150472246",
+            appId: "1:1060150472246:web:0a5a3a9e11a8ed7a883297",
+            measurementId: "G-YH3TZ86EGF"
+        };
+        // ==========================================
+
         window.appId = typeof __app_id !== 'undefined' ? __app_id : 'krooluhv-content-engine';
         window.isCloudConnected = false;
         let db = null;
         let auth = null;
 
-        // Verify configuration mapping inside runtime sandbox
-        const hasFirebaseConfig = typeof __firebase_config !== 'undefined' && __firebase_config;
+        const activeConfig = myHardcodedFirebaseConfig || (typeof __firebase_config !== 'undefined' && __firebase_config ? JSON.parse(__firebase_config) : null);
 
-        if (hasFirebaseConfig) {
+        if (activeConfig) {
             try {
-                const firebaseConfig = JSON.parse(__firebase_config);
-                const app = initializeApp(firebaseConfig);
+                const app = initializeApp(activeConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
                 
-                // Expose references globally
                 window.firebaseDb = db;
                 window.firebaseAuth = auth;
 
@@ -611,7 +621,6 @@
                 const customToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
                 let userCredential = null;
 
-                // Priority Authorization handling
                 if (customToken) {
                     userCredential = await signInWithCustomToken(auth, customToken);
                 } else {
@@ -619,7 +628,7 @@
                 }
 
                 const user = userCredential.user;
-                if (!user) return; // Strict guard (Rule 3)
+                if (!user) return; // Guard operation (Rule 3)
 
                 window.isCloudConnected = true;
                 updateCloudStatusUI(true, user.uid);
@@ -632,7 +641,6 @@
                     if (snap.exists()) {
                         const data = snap.data();
                         if (data && Array.isArray(data.posts)) {
-                            // Merge updates smoothly into system state
                             window.postsData = data.posts;
                             window.updateMetrics();
                             window.renderActiveView();
@@ -654,7 +662,6 @@
             }
         }
 
-        // Real-time Cloud Connection HUD Swapper
         function updateCloudStatusUI(connected, uid = null) {
             const dot = document.getElementById('cloud-status-dot');
             const text = document.getElementById('cloud-status-text');
@@ -666,7 +673,6 @@
                 }
                 if (text) text.textContent = "Cloud Sync Active";
                 if (userSub) {
-                    // Display full ID as per collaborative discoverability standard
                     userSub.textContent = `User: ${uid}`;
                 }
             } else {
@@ -698,7 +704,6 @@
 
     <!-- MAIN APP STATE JAVASCRIPT -->
     <script>
-        // Integrated Brand Strategy Base covering ALL core elements requested
         const coreBaseStrategies = [
             // Philosophy / Standard / Night Market Core
             { id: 1, campaign: "The Reintroduction", title: "Evolve Your Genius: Mantra launch", description: 'A front-facing introduction to Krooluhv\'s foundational philosophy: "Evolve Your Genius" and our defiant pursuit to "Do What You Love." Visual focuses on premium textures and raw industrial printing.', channels: ["TikTok", "IG Reels", "YT Shorts"], hook: "The intermission is over. Do what you love. Evolve your genius. No compromises." },
@@ -736,7 +741,7 @@
             { id: 23, campaign: "Footwear Infrastructure", title: "Gemini 1: Baseline Luxury Everyday Model", description: "The all-white luxury uniform classic: elevated platform, custom memory foam, geometric diamond heel carvings, and purple rose tongue embroidery.", channels: ["TikTok", "IG Reels"], hook: "The Gemini 1 platform classic. Geometric diamond sole patterns and our signature purple rose." },
             { id: 24, campaign: "Footwear Infrastructure", title: "The Marathon I Series: Stretch-Knit Core", description: "Detailed video introducing lightweight woven stretch-knit inners. Spotlighting Black Marathon I (Black/Black/Purple).", channels: ["IG Reels", "YT Shorts"], hook: "The original runner silhouette. Lightweight stretch-knit inner construction. Marathon I in black." },
             { id: 25, campaign: "Footwear Infrastructure", title: "Marathon I: Turquoise & Wheat Colorways", description: "Showcasing the Turquoise/Black/White/Purple and Wheat/Tan/Black/Purple options resting in our flagship warehouse.", channels: ["TikTok", "IG Reels"], hook: "Woven support, high-density comfort. Turquoise vs Wheat Marathon I. Pick your footprint." },
-            { id: 26, campaign: "Footwear Infrastructure", title: "OFFBEATxBABYGOAT: Floral AF1 & Kanagawa Wave", description: "Introducing custom Nike custom archives: Custom Embro Embroidered Floral AF1 and the Kanagawa Wave Nike Blazer Mid '77.", channels: ["Pinterest", "IG Carousel"], hook: "OFFBEATxBABYGOAT custom archive. Embroidered florals and Kanagawa wave Nike Blazer." },
+            { id: 26, campaign: "Footwear Infrastructure", title: "OFFBEATxBABYGOAT: Floral AF1 & Kanagawa Wave", description: "Introducing Nike custom archives: Custom Embroidered Floral AF1 and the Kanagawa Wave Nike Blazer Mid '77.", channels: ["Pinterest", "IG Carousel"], hook: "OFFBEATxBABYGOAT custom archive. Embroidered florals and Kanagawa wave Nike Blazer." },
             { id: 27, campaign: "Footwear Infrastructure", title: "OFFBEATxBABYGOAT: Matte Black AF1 with Rope Laces", description: "Showcasing the high-tier custom matte black AF1 featuring integrated, oversized industrial rope laces.", channels: ["TikTok", "IG Reels"], hook: "Matte Black custom AF1. Built with oversized rope laces. OFFBEATxBABYGOAT exclusive." },
             { id: 28, campaign: "Footwear Infrastructure", title: "OFFBEATxBABYGOAT: Lilac & Pink Pro Drip AF1", description: "Spotlight on the Custom Lilac AF1 and the hyper-vibrant Custom Pro Drip AF1 (Pink/White) paint configurations.", channels: ["IG Carousel", "TikTok"], hook: "Lilac washes and vibrant drip paint patterns. Made by hand, worn to stand out." },
 
@@ -747,7 +752,6 @@
             { id: 32, campaign: "Product Categories & Silhouette Anatomy", title: "Lifestyle Decor: Banners & Banners Who Lead", description: "Highlighting premium room backdrops: Classic Black Banner, 'Women Who Lead' Banner, and the iconic 'Dedication' Flag.", channels: ["IG Carousel", "Pinterest"], hook: "Drape your environment in our purpose. Heavy canvas Classic Black and Dedication room banners." }
         ];
 
-        // Additional thematic strategies to keep all 100 days filled with high-value variety
         const customThemeBank = [
             { campaign: "Behind the Brand & Process", title: "Zero Plastic, Custom Tissue Wrap", description: "Highlighting our commitment to high-end sustainable packaging, custom printed silk wrap tissue, and luxury boxes.", channels: ["TikTok", "IG Reels"], hook: "Every delivery is an event. Zero plastic, hand-assembled wraps for luxury delivery." },
             { campaign: "Behind the Brand & Process", title: "Pattern Grading from Scratch", description: "Showing how our patterns scale proportionally so oversized fits maintain structure across all sizes.", channels: ["YT Shorts", "TikTok"], hook: "An oversized fit shouldn't look sloppy. We graded our shoulders for perfect box shapes." },
@@ -761,7 +765,6 @@
             { campaign: "Behind the Brand & Process", title: "Testing Dye Stability", description: "Visual explanation of our wash-testing process to guarantee deep blacks never fade to grey.", channels: ["TikTok", "YT Shorts"], hook: "Washed 50 times and still pitch black. That's the Krooluhv commitment." }
         ];
 
-        // Week Meta Descriptions mapped up to 100 days
         const weekMeta = {
             1: { phase: "Week 1: The Awakening", desc: "Re-introducing the brand, laying down the Sans Pareil® Standard, and introducing the Night Market concept." },
             2: { phase: "Week 2: Love, Legend° Spotlight", desc: "Deep diving into Einstein, Basquiat x Warhol Boxing portraits, and cultural tribute graphics." },
@@ -780,35 +783,29 @@
             15: { phase: "Week 15: The Final Drop", desc: "Ending the 100-day relaunch loop with our final archive capsule, celebrating community support." }
         };
 
-        // App States
         let currentView = 'calendar';
         let currentCalendarWeek = 1;
         let selectedPostId = null;
         window.postsData = [];
 
-        // Dynamic schedule generator to scale layout smoothly to 100 days (15 Weeks, 142 total posts)
         function generate100DaysBlueprint() {
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             let globalId = 1;
             let generated = [];
 
-            // Loop through 100 Days (Day 1 to Day 100)
             for (let d = 1; d <= 100; d++) {
                 const dayIndex = (d - 1) % 7;
                 const dayName = days[dayIndex];
                 const weekNumber = Math.ceil(d / 7);
 
-                // Determine post quantity based on standard strategy formula
                 let postsCount = 1;
                 if (dayName === "Friday") postsCount = 2;
                 if (dayName === "Saturday") postsCount = 3;
 
                 for (let p = 1; p <= postsCount; p++) {
-                    // Pull standard core elements first, otherwise generate procedurally using custom theme bank
                     let basePost = coreBaseStrategies[(globalId - 1) % coreBaseStrategies.length];
                     let themePost = customThemeBank[(globalId - 1) % customThemeBank.length];
 
-                    // Select a strategic campaign track based on week/day phase to keep content logically structured
                     let campaignStr = basePost.campaign;
                     if (weekNumber === 2) campaignStr = "The Prolific Genius Collection";
                     if (weekNumber === 3) campaignStr = "The Justice Collection";
@@ -820,7 +817,6 @@
                     let postDesc = basePost.description;
                     let postHook = basePost.hook;
 
-                    // Give unique titles and descriptions for later dynamic days to keep the system rich and non-repetitive
                     if (globalId > coreBaseStrategies.length) {
                         postTitle = `${themePost.title} - Phase ${weekNumber}`;
                         postDesc = `${themePost.description} This custom content block supports the Krooluhv brand architecture, highlighting structural superiority on Day ${d}.`;
@@ -828,7 +824,6 @@
                         campaignStr = themePost.campaign;
                     }
 
-                    // Map timeslot
                     let timeSlot = "Morning";
                     if (dayName === "Friday" && p === 2) timeSlot = "Evening";
                     if (dayName === "Saturday") {
@@ -857,7 +852,6 @@
             return generated;
         }
 
-        // Initialize App & Sync Data
         window.onload = function() {
             const savedData = localStorage.getItem('krooluhv_100day_posts');
             if (savedData) {
@@ -877,7 +871,6 @@
             renderBirdseyeMap();
         };
 
-        // Unified Cloud/Local state saving wrapper
         window.saveState = function() {
             localStorage.setItem('krooluhv_100day_posts', JSON.stringify(window.postsData));
             if (window.isCloudConnected && typeof window.saveBlueprintToCloud === 'function') {
@@ -885,7 +878,6 @@
             }
         }
 
-        // Render dynamic navigation tabs for 15 weeks
         function renderWeekTabs() {
             const container = document.getElementById('week-buttons-scroll');
             if (!container) return;
@@ -906,7 +898,6 @@
             }
         }
 
-        // Switch overall layout modes
         function switchView(viewName) {
             currentView = viewName;
             
@@ -929,7 +920,6 @@
             renderActiveView();
         }
 
-        // Render views wrapper
         function renderActiveView() {
             if (currentView === 'calendar') {
                 renderCalendar();
@@ -940,12 +930,10 @@
             }
         }
 
-        // 1. Calendar View Renderer
         function setCalendarWeek(wkNum) {
             currentCalendarWeek = wkNum;
             renderWeekTabs();
 
-            // Update Header metrics
             const startDay = (wkNum - 1) * 7 + 1;
             const endDay = Math.min(wkNum * 7, 100);
             const indicator = document.getElementById('week-date-indicator');
@@ -953,7 +941,6 @@
                 indicator.textContent = `Days ${startDay} - ${endDay}`;
             }
 
-            // Update Meta banner
             const weekInfo = weekMeta[wkNum] || { phase: `Week ${wkNum}`, desc: "Continuing campaign development and strategic platform deployment." };
             const weekNumEl = document.getElementById('calendar-week-num');
             const weekDescEl = document.getElementById('calendar-week-desc');
@@ -973,8 +960,6 @@
 
             days.forEach((dayName, idx) => {
                 const currentDayNum = startDayNum + idx;
-                
-                // Keep rendering limited precisely to 100 Days max
                 if (currentDayNum > 100) return;
 
                 const dailyPosts = window.postsData.filter(p => p.dayNumber === currentDayNum);
@@ -1021,7 +1006,6 @@
                         if (post.status === 'scheduled') statusMarker = "bg-blue-950 text-blue-400 border border-blue-900/40";
                         if (post.status === 'published') statusMarker = "bg-orange-950 text-brand-orange border border-brand-orange/40";
 
-                        // Adjusted card typography with break-words & whitespace-normal to prevent container spills
                         dayCardHTML += `
                             <div onclick="openDrawer(${post.id})" class="bg-brand-black/60 hover:bg-neutral-900 border ${borderAccent} p-3 rounded-lg cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between min-h-[110px] w-full">
                                 <div class="w-full">
@@ -1050,7 +1034,6 @@
             });
         }
 
-        // 2. Campaigns Map View Renderer
         function renderCampaigns() {
             const container = document.getElementById('view-container-campaigns');
             if (!container) return;
@@ -1079,7 +1062,6 @@
                     visualTag = "border-brand-neonGreen/40";
                 }
 
-                // Render campaigns cleanly with text-wrap guards
                 let campHTML = `
                     <div class="bg-brand-darkGray border ${visualTag} p-5 rounded-2xl space-y-4 flex flex-col justify-between w-full">
                         <div>
@@ -1134,7 +1116,6 @@
             });
         }
 
-        // 3. Tabular Master Database View
         function renderList() {
             const tbody = document.getElementById('master-table-body');
             if (!tbody) return;
@@ -1174,7 +1155,6 @@
             }
         }
 
-        // 100-Day Micro Grid map overview renderer
         function renderBirdseyeMap() {
             const gridContainer = document.getElementById('birdseye-grid');
             if (!gridContainer) return;
@@ -1182,7 +1162,6 @@
 
             for (let d = 1; d <= 100; d++) {
                 const dayPosts = window.postsData.filter(p => p.dayNumber === d);
-                
                 let mapColorClass = "bg-neutral-850 hover:border-white/40 border-neutral-800/20";
                 
                 if (dayPosts.length > 0) {
@@ -1209,7 +1188,6 @@
             }
         }
 
-        // Metrics Calculation Engine
         window.updateMetrics = function() {
             const total = window.postsData.length;
             const todo = window.postsData.filter(p => p.status === 'todo').length;
@@ -1239,20 +1217,17 @@
             if (progressBarEl) progressBarEl.style.width = `${progressPercent}%`;
         }
 
-        // Drawer Controller
         function openDrawer(postId) {
             const post = window.postsData.find(p => p.id === postId);
             if (!post) return;
             
             selectedPostId = postId;
 
-            // Display standard static header
             const drawerIdEl = document.getElementById('drawer-post-id');
             const drawerCampaignEl = document.getElementById('drawer-campaign-tag');
             if (drawerIdEl) drawerIdEl.textContent = `Post ${post.id}`;
             if (drawerCampaignEl) drawerCampaignEl.textContent = post.campaign;
 
-            // Inject editable parameters into inputs
             const titleInput = document.getElementById('drawer-title-input');
             const dayInput = document.getElementById('drawer-day-input');
             const timeInput = document.getElementById('drawer-time-input');
@@ -1269,7 +1244,6 @@
             if (channelsInput) channelsInput.value = (post.channels || []).join(', ');
             if (hookInput) hookInput.value = post.hook || "";
 
-            // Style action indicators
             document.querySelectorAll('.status-btn-option').forEach(btn => {
                 btn.classList.remove('ring-2', 'ring-brand-orange');
             });
@@ -1279,11 +1253,9 @@
                 activeStatusBtn.classList.add('ring-2', 'ring-brand-orange');
             }
 
-            // Expose structural Delete option
             const deleteBtn = document.getElementById('btn-delete-post');
             if (deleteBtn) deleteBtn.style.display = "block";
 
-            // Animate
             const drawerBg = document.getElementById('drawer');
             if (drawerBg) {
                 const drawerBody = drawerBg.firstElementChild;
@@ -1303,7 +1275,6 @@
             }
         }
 
-        // Custom Creator Dialog Initiation
         function openNewPostModal() {
             selectedPostId = "new";
             
@@ -1312,7 +1283,6 @@
             if (drawerIdEl) drawerIdEl.textContent = "NEW POST CREATION";
             if (drawerCampaignEl) drawerCampaignEl.textContent = "Custom Addition";
 
-            // Default initial variables
             const titleInput = document.getElementById('drawer-title-input');
             const dayInput = document.getElementById('drawer-day-input');
             const timeInput = document.getElementById('drawer-time-input');
@@ -1335,11 +1305,9 @@
             const todoBtn = document.getElementById('btn-status-todo');
             if (todoBtn) todoBtn.classList.add('ring-2', 'ring-brand-orange');
 
-            // Hide structural options for fresh entries
             const deleteBtn = document.getElementById('btn-delete-post');
             if (deleteBtn) deleteBtn.style.display = "none";
 
-            // Open Modal
             const drawerBg = document.getElementById('drawer');
             if (drawerBg) {
                 const drawerBody = drawerBg.firstElementChild;
@@ -1349,7 +1317,6 @@
             }
         }
 
-        // Save / Update functionality
         function saveChanges() {
             const titleVal = document.getElementById('drawer-title-input').value.trim();
             const dayVal = parseInt(document.getElementById('drawer-day-input').value) || 1;
@@ -1360,7 +1327,6 @@
             const hookVal = document.getElementById('drawer-hook-input').value.trim();
 
             if (selectedPostId === "new") {
-                // Generate absolute unique global ID
                 const nextId = window.postsData.length > 0 ? Math.max(...window.postsData.map(p => p.id)) + 1 : 1;
                 const weekNum = Math.ceil(dayVal / 7);
                 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -1407,7 +1373,6 @@
             closeDrawer();
         }
 
-        // Delete post
         function deletePost() {
             if (selectedPostId === "new" || !selectedPostId) return;
 
@@ -1422,7 +1387,6 @@
             });
         }
 
-        // Status updater
         function setPostStatus(newStatus) {
             if (!selectedPostId || selectedPostId === "new") return;
 
@@ -1444,7 +1408,6 @@
             }
         }
 
-        // Toast notifications
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
             const textElement = document.getElementById('toast-message');
@@ -1461,7 +1424,6 @@
             }
         }
 
-        // Custom Confirm Dialogue Box
         let confirmActionCallback = null;
         function requestConfirmation(promptMessage, actionCallback) {
             const modal = document.getElementById('custom-confirm-modal');
@@ -1505,7 +1467,6 @@
             };
         }
 
-        // Clipboard Copy Action (safe fallback for restricted iframes)
         function copyHookToClipboard() {
             const textarea = document.getElementById('drawer-hook-input');
             if (!textarea) return;
@@ -1530,7 +1491,6 @@
             document.body.removeChild(textElementTemp);
         }
 
-        // Global Strategy Reset
         function resetAllStatuses() {
             requestConfirmation(
                 "Are you sure you want to reset all 100 days of progress, returning all posts to 'To Do' status?",
@@ -1545,7 +1505,6 @@
             );
         }
 
-        // Live Search Input Filter
         function runSearch() {
             const q = document.getElementById('postSearch').value.toLowerCase();
             const referenceData = JSON.parse(localStorage.getItem('krooluhv_100day_posts')) || generate100DaysBlueprint();
@@ -1562,7 +1521,6 @@
             renderActiveView();
         }
 
-        // Download JSON blueprint
         function exportData() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.postsData, null, 2));
             const dlAnchorElem = document.createElement('a');
@@ -1575,11 +1533,8 @@
 
         function toggleFullscreen() {
             if (!document.fullscreenElement && !isSimulatedFullscreen) {
-                // Attempt native fullscreen first
                 document.documentElement.requestFullscreen().then(() => {
-                    // Handled gracefully by structural change listener below
                 }).catch(err => {
-                    // Fall back automatically if permission policy restricts action
                     console.warn("Native fullscreen restricted by permission policy. Falling back to Theater Mode.");
                     enableSimulatedFullscreen();
                 });
@@ -1618,7 +1573,6 @@
             }
         }
 
-        // Track fullscreen change event to update the premium UI icons
         document.addEventListener('fullscreenchange', () => {
             if (document.fullscreenElement) {
                 updateFullscreenUI(true);
@@ -1632,7 +1586,6 @@
 
     <!-- GEMINI API INTEGRATION JAVASCRIPT -->
     <script>
-        // System prompt establishing the Krooluhv creative tone
         const krooluhvSystemPrompt = `You are a world-class luxury streetwear director and lead social strategist for "Krooluhv Clothing".
 The brand voice is bold, poetic, cinematic, mysterious, and highly technical.
 Avoid corny, generic hypebeast terminology (like 'FIRE DROP OOM', 'SICK VIBES 🔥', 'ITS GOING CRAZY').
@@ -1644,10 +1597,8 @@ Instead, write with an elevated, structural, concrete perspective. Focus on:
 
 Format all platform output cleanly and professionally. Always respond in the style specified in the voice profile calibration context.`;
 
-        // Robust fetch engine implementing exponential backoff
         async function fetchGeminiAPI(prompt, systemInstruction = krooluhvSystemPrompt, responseSchema = null, retries = 3, delay = 1000) {
             const keyInput = document.getElementById('ai-api-key').value;
-            // canvas runtime automatically provides credentials if left empty
             const apiKey = keyInput || ""; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
@@ -1693,7 +1644,6 @@ Format all platform output cleanly and professionally. Always respond in the sty
             }
         }
 
-        // Inline Drawer optimization
         async function aiRewriteDrawerField(fieldName) {
             const title = document.getElementById('drawer-title-input').value;
             const campaign = document.getElementById('drawer-campaign-input').value;
@@ -1728,7 +1678,6 @@ Adopt a highly curated, premium streetwear tone calibrated with the "${voiceStyl
             }
         }
 
-        // AI Studio Actions - Brainstorm Single Post
         async function aiGenerateSinglePost() {
             const statusInd = document.getElementById('ai-status-indicator');
             const container = document.getElementById('ai-output-container');
@@ -1766,7 +1715,6 @@ Draft high-end details explaining why custom pattern blueprints and fabrics defi
                 if (!text) throw new Error("Empty body candidates.");
                 const parsedPost = JSON.parse(text);
 
-                // Target dynamic random Day mapping
                 const suggestedDay = Math.floor(Math.random() * 100) + 1;
 
                 container.innerHTML = `
@@ -1815,7 +1763,6 @@ Draft high-end details explaining why custom pattern blueprints and fabrics defi
             }
         }
 
-        // AI Studio Actions - Generate Saturday 3-Post Sequence
         async function aiGenerateSaturdaySequence() {
             const statusInd = document.getElementById('ai-status-indicator');
             const container = document.getElementById('ai-output-container');
@@ -1857,7 +1804,6 @@ Plan one post for Morning (10 AM), one for Mid-day (2 PM), and one for Evening (
                 if (!text) throw new Error("Empty body candidates.");
                 const parsedList = JSON.parse(text);
 
-                // Prompt user to select a targets Saturday inside 100 days
                 const validSaturdays = [6, 13, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, 90, 97];
                 const suggestedSaturdayDay = validSaturdays[Math.floor(Math.random() * validSaturdays.length)];
 
@@ -1911,7 +1857,6 @@ Plan one post for Morning (10 AM), one for Mid-day (2 PM), and one for Evening (
             }
         }
 
-        // Add generated single post to target Day matrix
         function injectAIGeneratedPost(postObj, dayNum, campaignStr) {
             const nextId = window.postsData.length > 0 ? Math.max(...window.postsData.map(p => p.id)) + 1 : 1;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -1938,12 +1883,10 @@ Plan one post for Morning (10 AM), one for Mid-day (2 PM), and one for Evening (
             resetAIFallback();
         }
 
-        // Add 3-post Saturday sequence to targeted Saturday index
         function injectAISatBatch(batchArray, targetDay, campaignStr) {
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             const dayName = days[(targetDay - 1) % 7];
 
-            // Clear previous slots on that Saturday to maintain perfect algorithm density balance
             window.postsData = window.postsData.filter(p => p.dayNumber !== targetDay);
 
             batchArray.forEach((post, index) => {
