@@ -85,7 +85,7 @@
 <body class="text-slate-100 min-h-screen font-sans antialiased">
 
     <header class="border-b border-brand-borderGray bg-brand-black/90 backdrop-blur-md sticky top-0 z-40 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
+        <div class="max-w-full mx-auto flex flex-col lg:flex-row justify-between items-center gap-4 px-4 lg:px-8">
             <!-- Brand Identity -->
             <div class="flex items-center gap-3">
                 <div class="bg-brand-orange text-black px-3 py-1 font-display font-bold text-lg tracking-widest uppercase rounded">
@@ -133,7 +133,7 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <main class="max-w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 px-4 lg:px-8">
 
         <!-- SIDEBAR CONTROLS & ALGORITHM STRATEGY -->
         <section class="lg:col-span-3 space-y-6">
@@ -278,31 +278,31 @@
                 </div>
 
                 <!-- Calendar Week Grid (7 days) -->
-                <div class="grid grid-cols-1 md:grid-cols-7 gap-4" id="calendar-days-grid">
+                <div class="grid grid-cols-1 md:grid-cols-7 gap-4 w-full" id="calendar-days-grid">
                     <!-- Daily grid items injected via JS -->
                 </div>
             </div>
 
             <!-- 2. CAMPAIGN MAP VIEW -->
-            <div id="view-container-campaigns" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="view-container-campaigns" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                 <!-- Injected via JS dynamically to split posts by campaign categories -->
             </div>
 
             <!-- 3. MASTER LIST VIEW -->
-            <div id="view-container-list" class="hidden bg-brand-darkGray border border-brand-borderGray rounded-xl overflow-hidden">
+            <div id="view-container-list" class="hidden bg-brand-darkGray border border-brand-borderGray rounded-xl overflow-hidden w-full">
                 <div class="p-4 border-b border-brand-borderGray bg-brand-black/40 flex justify-between items-center flex-wrap gap-2">
                     <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">All Strategic Timeline Points</h4>
                     <span class="text-xs text-brand-coolGray" id="list-count-display">Showing 142 items</span>
                 </div>
                 <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
-                    <table class="w-full text-left text-xs text-brand-coolGray border-collapse">
+                    <table class="w-full text-left text-xs text-brand-coolGray border-collapse table-fixed min-w-[800px]">
                         <thead class="sticky top-0 bg-brand-darkGray z-10">
                             <tr class="border-b border-brand-borderGray bg-neutral-900 uppercase tracking-wider font-semibold text-white">
-                                <th class="p-4">Post</th>
-                                <th class="p-4">Campaign Track</th>
-                                <th class="p-4">Time-slot Index</th>
-                                <th class="p-4">Focus Concept</th>
-                                <th class="p-4 text-center">Status</th>
+                                <th class="p-4 w-20">Post</th>
+                                <th class="p-4 w-1/4">Campaign Track</th>
+                                <th class="p-4 w-1/4">Time-slot Index</th>
+                                <th class="p-4 w-2/5">Focus Concept</th>
+                                <th class="p-4 text-center w-24">Status</th>
                             </tr>
                         </thead>
                         <tbody id="master-table-body" class="divide-y divide-brand-borderGray/50">
@@ -313,7 +313,7 @@
             </div>
 
             <!-- 4. AI CREATIVE STUDIO VIEW -->
-            <div id="view-container-ai" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div id="view-container-ai" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
                 
                 <!-- AI Controls Column (Left) -->
                 <div class="lg:col-span-5 space-y-6">
@@ -374,9 +374,9 @@
                         <span class="text-[10px] uppercase tracking-widest font-bold text-white block">AI Studio Principles:</span>
                         <p class="leading-relaxed">All generated concepts automatically map to realistic platform specs (TikTok / Reels hooks, sizing recommendations) built dynamically with streetwear aesthetics.</p>
                         <div class="bg-brand-black/40 p-2.5 rounded border border-brand-borderGray/40 font-mono text-[10px] space-y-1">
-                            <span class="text-brand-orange block">✔ Structured JSON parsing</span>
-                            <span class="text-blue-400 block">✔ Fallback mechanisms configured</span>
-                            <span class="text-green-400 block">✔ Real-time calendar insertion</span>
+                            <span class="text-brand-orange block font-bold">✔ Structured JSON parsing</span>
+                            <span class="text-blue-400 block font-bold">✔ Fallback mechanisms configured</span>
+                            <span class="text-green-400 block font-bold">✔ Real-time calendar insertion</span>
                         </div>
                     </div>
                 </div>
@@ -421,7 +421,7 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <span id="drawer-post-id" class="bg-brand-orange/25 text-brand-orange border border-brand-orange/40 font-display font-bold px-2 py-0.5 rounded text-xs uppercase">Post 01</span>
-                        <span id="drawer-campaign-tag" class="ml-2 text-xs uppercase tracking-wider text-brand-coolGray">Campaign</span>
+                        <span id="drawer-campaign-tag" class="ml-2 text-xs uppercase tracking-wider text-brand-coolGray break-words whitespace-normal">Campaign</span>
                     </div>
                     <button onclick="closeDrawer()" class="text-brand-coolGray hover:text-white transition-colors p-1">
                         <i class="fa-solid fa-xmark text-lg"></i>
@@ -431,21 +431,21 @@
                 <!-- Live Editable Form Inputs inside Drawer -->
                 <div class="space-y-3">
                     <div>
-                        <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1">Post Focus Title</label>
+                        <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1 font-bold">Post Focus Title</label>
                         <input type="text" id="drawer-title-input" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-sm text-white focus:outline-none focus:border-brand-orange">
                     </div>
 
                     <div class="grid grid-cols-3 gap-2 text-xs">
                         <div>
-                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1">Schedule Day</label>
+                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1 font-bold">Schedule Day</label>
                             <input type="number" id="drawer-day-input" min="1" max="100" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-sm text-white focus:outline-none focus:border-brand-orange">
                         </div>
                         <div>
-                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1">Time Slot</label>
+                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1 font-bold">Time Slot</label>
                             <input type="text" id="drawer-time-input" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-sm text-white focus:outline-none focus:border-brand-orange">
                         </div>
                         <div>
-                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1">Campaign Track</label>
+                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1 font-bold">Campaign Track</label>
                             <select id="drawer-campaign-input" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-xs text-white focus:outline-none focus:border-brand-orange">
                                 <option value="The Reintroduction">The Reintroduction</option>
                                 <option value="The Prolific Genius Collection">The Prolific Genius Collection</option>
@@ -462,31 +462,31 @@
 
                     <div>
                         <div class="flex justify-between items-center mb-1">
-                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block">Description & Script Blueprint</label>
+                            <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block font-bold">Description & Script Blueprint</label>
                             <button onclick="aiRewriteDrawerField('description')" class="text-[9px] bg-brand-orange/15 text-brand-orange hover:bg-brand-orange hover:text-black border border-brand-orange/30 transition-all px-2 py-0.5 rounded flex items-center gap-1 font-semibold uppercase">
                                 <i class="fa-solid fa-wand-magic-sparkles text-[8px]"></i> Gemini Rewrite
                             </button>
                         </div>
-                        <textarea id="drawer-desc-input" rows="4" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-brand-orange leading-relaxed"></textarea>
+                        <textarea id="drawer-desc-input" rows="4" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-xs text-slate-200 focus:outline-none focus:border-brand-orange leading-relaxed break-words whitespace-normal"></textarea>
                     </div>
 
                     <div>
-                        <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1">Platform Channels (Comma-separated)</label>
+                        <label class="text-[10px] uppercase text-brand-coolGray tracking-widest block mb-1 font-bold">Platform Channels (Comma-separated)</label>
                         <input type="text" id="drawer-channels-input" class="w-full bg-brand-black border border-brand-borderGray rounded p-2 text-xs text-white focus:outline-none focus:border-brand-orange">
                     </div>
                 </div>
 
                 <!-- Platform Guides Checklists -->
                 <div class="space-y-3 pt-2">
-                    <span class="text-[10px] uppercase tracking-widest text-brand-coolGray block">Best Practices:</span>
+                    <span class="text-[10px] uppercase tracking-widest text-brand-coolGray block font-bold">Best Practices:</span>
                     <div class="grid grid-cols-2 gap-2 text-[10px]">
                         <div class="bg-neutral-900/60 p-2 rounded border border-brand-borderGray/40">
                             <span class="text-brand-orange font-bold uppercase block"><i class="fa-brands fa-tiktok mr-1"></i> TikTok / Reels</span>
-                            <p class="text-neutral-400 mt-0.5">Place a textual hook in initial 1.5s.</p>
+                            <p class="text-neutral-400 mt-0.5 break-words whitespace-normal">Place a textual hook in initial 1.5s.</p>
                         </div>
                         <div class="bg-neutral-900/60 p-2 rounded border border-brand-borderGray/40">
                             <span class="text-blue-400 font-bold uppercase block"><i class="fa-brands fa-pinterest mr-1"></i> Pinterest</span>
-                            <p class="text-neutral-400 mt-0.5">Use 2:3 aspect ratio, link to Night Market.</p>
+                            <p class="text-neutral-400 mt-0.5 break-words whitespace-normal">Use 2:3 aspect ratio, link to Night Market.</p>
                         </div>
                     </div>
                 </div>
@@ -501,7 +501,7 @@
                             <i class="fa-solid fa-wand-magic-sparkles text-[8px]"></i> Optimize Hook
                         </button>
                     </div>
-                    <textarea id="drawer-hook-input" rows="2" class="w-full bg-brand-black/50 border border-brand-borderGray/40 rounded p-1.5 text-xs text-slate-300 italic focus:outline-none focus:border-brand-orange"></textarea>
+                    <textarea id="drawer-hook-input" rows="2" class="w-full bg-brand-black/50 border border-brand-borderGray/40 rounded p-1.5 text-xs text-slate-300 italic focus:outline-none focus:border-brand-orange break-words whitespace-normal"></textarea>
                     
                     <button onclick="copyHookToClipboard()" class="text-[10px] text-brand-orange uppercase tracking-wider font-semibold hover:underline flex items-center gap-1">
                         <i class="fa-solid fa-copy"></i> Copy Styled Caption Hook
@@ -512,7 +512,7 @@
             <!-- Footer Action Controls inside Drawer -->
             <div class="border-t border-brand-borderGray pt-4 mt-6 space-y-4">
                 <div>
-                    <span class="text-[10px] uppercase tracking-widest text-brand-coolGray block mb-2">Set Deployment Status:</span>
+                    <span class="text-[10px] uppercase tracking-widest text-brand-coolGray block mb-2 font-bold">Set Deployment Status:</span>
                     <div class="grid grid-cols-3 gap-2">
                         <button onclick="setPostStatus('todo')" id="btn-status-todo" class="status-btn-option py-2 text-xs uppercase font-bold rounded tracking-wider border border-brand-borderGray bg-brand-black hover:bg-neutral-900 text-slate-400 transition-all">
                             To Do
@@ -541,7 +541,7 @@
     <!-- Custom Streetwear Toast Notification -->
     <div id="toast-notification" class="fixed bottom-6 left-6 bg-brand-orange text-black px-5 py-3 rounded-xl font-display font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(255,85,0,0.3)] flex items-center gap-2.5 z-[70] transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
         <i class="fa-solid fa-circle-check text-sm"></i>
-        <span id="toast-message">Action Completed Successfully</span>
+        <span id="toast-message" class="break-words whitespace-normal">Action Completed Successfully</span>
     </div>
 
     <!-- Custom Confirmation Modal -->
@@ -553,7 +553,7 @@
                 </div>
                 <div>
                     <h3 class="font-display font-bold text-white text-base uppercase tracking-wider">Strategic Action</h3>
-                    <p id="confirm-modal-description" class="text-xs text-brand-coolGray leading-relaxed mt-1">
+                    <p id="confirm-modal-description" class="text-xs text-brand-coolGray leading-relaxed mt-1 break-words whitespace-normal">
                         Are you sure you want to perform this schedule modification?
                     </p>
                 </div>
@@ -985,7 +985,7 @@
                 if (totalForDay === 3) badgeColor = "bg-orange-950 text-brand-orange border border-brand-orange/30";
 
                 let dayCardHTML = `
-                    <div class="bg-brand-darkGray border border-brand-borderGray p-4 rounded-xl flex flex-col justify-between min-h-[350px]">
+                    <div class="bg-brand-darkGray border border-brand-borderGray p-4 rounded-xl flex flex-col justify-between min-h-[350px] w-full">
                         <div>
                             <div class="flex justify-between items-center border-b border-brand-borderGray pb-2 mb-3">
                                 <div>
@@ -1001,7 +1001,7 @@
 
                 if (dailyPosts.length === 0) {
                     dayCardHTML += `
-                        <div class="text-center py-12 text-neutral-600 text-xs italic">
+                        <div class="text-center py-12 text-neutral-600 text-xs italic break-words whitespace-normal">
                             Empty Day. Click "Add Custom Post" to insert schedules.
                         </div>
                     `;
@@ -1021,14 +1021,15 @@
                         if (post.status === 'scheduled') statusMarker = "bg-blue-950 text-blue-400 border border-blue-900/40";
                         if (post.status === 'published') statusMarker = "bg-orange-950 text-brand-orange border border-brand-orange/40";
 
+                        // Adjusted card typography with break-words & whitespace-normal to prevent container spills
                         dayCardHTML += `
-                            <div onclick="openDrawer(${post.id})" class="bg-brand-black/60 hover:bg-neutral-900 border ${borderAccent} p-3 rounded-lg cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between min-h-[110px]">
-                                <div>
+                            <div onclick="openDrawer(${post.id})" class="bg-brand-black/60 hover:bg-neutral-900 border ${borderAccent} p-3 rounded-lg cursor-pointer transition-all hover:scale-[1.02] flex flex-col justify-between min-h-[110px] w-full">
+                                <div class="w-full">
                                     <div class="flex justify-between text-[9px] text-brand-coolGray mb-1">
                                         <span class="font-mono text-neutral-500">${post.time}</span>
-                                        <span class="${tagAccent} tracking-wider font-display text-[8px] uppercase">${post.campaign.includes("Genius") ? 'Genius' : post.campaign.includes("Justice") ? 'Justice' : post.campaign.includes("Art") ? 'Fine Art' : 'Krooluhv'}</span>
+                                        <span class="${tagAccent} tracking-wider font-display text-[8px] uppercase break-all">${post.campaign.includes("Genius") ? 'Genius' : post.campaign.includes("Justice") ? 'Justice' : post.campaign.includes("Art") ? 'Fine Art' : 'Krooluhv'}</span>
                                     </div>
-                                    <h5 class="font-semibold text-white text-[11px] leading-snug line-clamp-2">${post.title}</h5>
+                                    <h5 class="font-semibold text-white text-[11px] leading-snug break-words whitespace-normal normal-case">${post.title}</h5>
                                 </div>
                                 <div class="flex justify-between items-center mt-2.5 pt-2 border-t border-brand-borderGray/20">
                                     <span class="text-[8px] font-mono font-semibold text-neutral-500">#${post.id}</span>
@@ -1078,12 +1079,13 @@
                     visualTag = "border-brand-neonGreen/40";
                 }
 
+                // Render campaigns cleanly with text-wrap guards
                 let campHTML = `
-                    <div class="bg-brand-darkGray border ${visualTag} p-5 rounded-2xl space-y-4 flex flex-col justify-between">
+                    <div class="bg-brand-darkGray border ${visualTag} p-5 rounded-2xl space-y-4 flex flex-col justify-between w-full">
                         <div>
                             <div class="flex justify-between items-start border-b border-brand-borderGray pb-3">
-                                <div>
-                                    <h4 class="font-display font-bold text-base text-white uppercase tracking-wider">${campName}</h4>
+                                <div class="max-w-[70%]">
+                                    <h4 class="font-display font-bold text-base text-white uppercase tracking-wider break-words whitespace-normal">${campName}</h4>
                                     <p class="text-[10px] text-brand-coolGray mt-0.5 uppercase tracking-widest font-semibold">Active Campaign Track</p>
                                 </div>
                                 <div class="text-right">
@@ -1109,10 +1111,10 @@
 
                         campHTML += `
                             <div onclick="openDrawer(${post.id})" class="flex justify-between items-center bg-brand-black/40 hover:bg-neutral-900/80 p-2.5 rounded-lg border border-brand-borderGray/30 cursor-pointer transition-all">
-                                <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-3 max-w-[75%]">
                                     <span class="text-[10px] font-mono text-neutral-500">#${post.id}</span>
                                     <div>
-                                        <p class="text-white text-xs font-medium">${post.title}</p>
+                                        <p class="text-white text-xs font-medium break-words whitespace-normal normal-case">${post.title}</p>
                                         <p class="text-[9px] text-brand-coolGray uppercase">Day ${post.dayNumber} (${post.time})</p>
                                     </div>
                                 </div>
@@ -1151,13 +1153,13 @@
                 }
 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-neutral-900/40 transition-colors cursor-pointer" onclick="openDrawer(${post.id})">
+                    <tr class="hover:bg-neutral-900/40 transition-colors cursor-pointer border-b border-brand-borderGray/30" onclick="openDrawer(${post.id})">
                         <td class="p-4 font-mono font-semibold text-white">#${post.id}</td>
-                        <td class="p-4 ${campaignTextClass} uppercase text-[10px] tracking-wider">${post.campaign}</td>
-                        <td class="p-4 text-white">Day ${post.dayNumber} • ${post.day} <span class="text-brand-coolGray">(${post.time})</span></td>
+                        <td class="p-4 ${campaignTextClass} uppercase text-[10px] tracking-wider break-words whitespace-normal">${post.campaign}</td>
+                        <td class="p-4 text-white break-words whitespace-normal">Day ${post.dayNumber} • ${post.day} <span class="text-brand-coolGray">(${post.time})</span></td>
                         <td class="p-4">
-                            <p class="text-white font-medium mb-0.5 text-xs">${post.title}</p>
-                            <p class="text-[10px] text-brand-coolGray/80 line-clamp-1 leading-relaxed">${post.description}</p>
+                            <p class="text-white font-medium mb-1 text-xs break-words whitespace-normal normal-case">${post.title}</p>
+                            <p class="text-[10px] text-brand-coolGray/80 break-words whitespace-normal leading-relaxed normal-case">${post.description}</p>
                         </td>
                         <td class="p-4 text-center">
                             <span class="text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${statusMarker}">${post.status}</span>
@@ -1772,19 +1774,19 @@ Draft high-end details explaining why custom pattern blueprints and fabrics defi
                         <div class="flex justify-between items-start border-b border-brand-borderGray/40 pb-3">
                             <div>
                                 <span class="bg-brand-orange/20 text-brand-orange text-[9px] font-mono px-2 py-0.5 rounded uppercase font-semibold">BRAINSTORMED POST IDEA</span>
-                                <h5 class="font-display font-bold text-white text-base mt-1.5">${parsedPost.title}</h5>
+                                <h5 class="font-display font-bold text-white text-base mt-1.5 break-words whitespace-normal normal-case">${parsedPost.title}</h5>
                             </div>
                             <span class="text-xs text-brand-coolGray font-mono">Suggested Day: ${suggestedDay}</span>
                         </div>
 
                         <div class="space-y-2">
                             <span class="text-[9px] uppercase tracking-widest text-brand-coolGray block">Description & Craft Blueprint:</span>
-                            <p class="text-xs text-neutral-300 leading-relaxed">${parsedPost.description}</p>
+                            <p class="text-xs text-neutral-300 leading-relaxed break-words whitespace-normal normal-case">${parsedPost.description}</p>
                         </div>
 
                         <div class="bg-neutral-900/40 p-3 rounded border border-brand-borderGray/30 space-y-2">
                             <span class="text-[9px] uppercase tracking-widest text-brand-orange block font-bold">Suggested Reel Caption Hook:</span>
-                            <p class="text-xs text-brand-orange italic leading-relaxed">"${parsedPost.hook}"</p>
+                            <p class="text-xs text-brand-orange italic leading-relaxed break-words whitespace-normal normal-case">"${parsedPost.hook}"</p>
                         </div>
 
                         <div class="flex flex-wrap justify-between items-center gap-3 pt-2">
@@ -1878,9 +1880,9 @@ Plan one post for Morning (10 AM), one for Mid-day (2 PM), and one for Evening (
                                 <span class="text-brand-orange font-bold font-mono uppercase">${post.time || '10 AM Slot'}</span>
                                 <span class="text-neutral-500 font-mono">Sequence Post #${index + 1}</span>
                             </div>
-                            <h6 class="text-xs font-bold text-white">${post.title}</h6>
-                            <p class="text-[11px] text-neutral-300 leading-relaxed">${post.description}</p>
-                            <p class="text-[11px] text-brand-orange italic leading-relaxed">"${post.hook}"</p>
+                            <h6 class="text-xs font-bold text-white break-words whitespace-normal normal-case">${post.title}</h6>
+                            <p class="text-[11px] text-neutral-300 leading-relaxed break-words whitespace-normal normal-case">${post.description}</p>
+                            <p class="text-[11px] text-brand-orange italic leading-relaxed break-words whitespace-normal normal-case">"${post.hook}"</p>
                         </div>
                     `;
                 });
