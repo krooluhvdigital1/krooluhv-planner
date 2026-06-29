@@ -102,7 +102,7 @@
             <!-- Global KPI Trackers -->
             <div class="flex items-center gap-4 text-sm flex-wrap justify-center">
                 <!-- Cloud Status Indicator -->
-                <div id="cloud-status-badge" class="bg-brand-darkGray border border-brand-borderGray px-4 py-2 rounded-lg flex items-center gap-2.5">
+                <div id="cloud-status-badge" onclick="explainAuthError()" class="bg-brand-darkGray border border-brand-borderGray px-4 py-2 rounded-lg flex items-center gap-2.5 cursor-pointer hover:bg-neutral-900 transition-colors">
                     <span id="cloud-status-dot" class="w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse"></span>
                     <div>
                         <p id="cloud-status-text" class="text-[10px] font-display font-bold text-white uppercase tracking-wider">Local Mode</p>
@@ -656,13 +656,25 @@
                 });
 
             } catch (error) {
-                console.error("Authentication Sequence Blocked:", error);
+                console.warn("Authentication Sequence Gracefully Intercepted:", error);
                 window.isCloudConnected = false;
-                updateCloudStatusUI(false);
+                
+                let errorLabel = "Local Mode";
+                let errorMessage = "Saved Offline in Browser";
+                
+                if (error.code === 'auth/configuration-not-found' || error.message.includes('configuration-not-found')) {
+                    errorLabel = "Auth Disabled";
+                    errorMessage = "Click here to initialize Firebase Auth service";
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    errorLabel = "Anonymous Off";
+                    errorMessage = "Click here to enable Anonymous Sign-in";
+                }
+                
+                updateCloudStatusUI(false, errorMessage, errorLabel);
             }
         }
 
-        function updateCloudStatusUI(connected, uid = null) {
+        function updateCloudStatusUI(connected, uid = null, customLabel = null) {
             const dot = document.getElementById('cloud-status-dot');
             const text = document.getElementById('cloud-status-text');
             const userSub = document.getElementById('cloud-user-id');
@@ -679,8 +691,8 @@
                 if (dot) {
                     dot.className = "w-2.5 h-2.5 rounded-full bg-yellow-500";
                 }
-                if (text) text.textContent = "Local Backup";
-                if (userSub) userSub.textContent = "Saved Offline in Browser";
+                if (text) text.textContent = customLabel || "Local Mode";
+                if (userSub) userSub.textContent = uid || "Saved Offline in Browser";
             }
         }
 
@@ -1527,6 +1539,28 @@
             dlAnchorElem.setAttribute("href", dataStr);
             dlAnchorElem.setAttribute("download", "krooluhv_100day_relaunch_blueprint.json");
             dlAnchorElem.click();
+        }
+
+        // Interactive Guided Explanations for Firebase setup errors
+        window.explainAuthError = function() {
+            const statusText = document.getElementById('cloud-status-text')?.textContent;
+            if (statusText === "Auth Disabled") {
+                requestConfirmation(
+                    "To enable Cloud Sync, you need to turn on Authentication. Go to Firebase Console -> click 'Authentication' -> click the blue 'Get Started' button. Ready to jump to the console?",
+                    function() {
+                        window.open("https://console.firebase.google.com/project/krooluhv-planner/authentication", "_blank");
+                    }
+                );
+            } else if (statusText === "Anonymous Off") {
+                requestConfirmation(
+                    "You need to allow Anonymous Guest access. Go to Firebase Console -> Authentication -> Sign-in Method tab -> edit 'Anonymous' and turn on Enable. Open console?",
+                    function() {
+                        window.open("https://console.firebase.google.com/project/krooluhv-planner/authentication/providers", "_blank");
+                    }
+                );
+            } else {
+                showToast("Connected via local cache. Database fully operational!");
+            }
         }
 
         let isSimulatedFullscreen = false;
